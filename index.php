@@ -1,20 +1,20 @@
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
+header('Acces-Control-Allow-Origin: *');
 
 require_once('application/Answer.php');
-require_once('application/Triangle.php');
+require_once('application/Application.php');
+
 
 function result($params) {
     $method = $params['method'];
     if ($method) {
-        $triangle = new Triangle();
-        $a = $params['a'];
-        $b = $params['b'];
+        $app = new Application();
         switch ($method) {
-            case 'method1': return $triangle -> method1($a, $b);
-            case 'method2': return $triangle -> method2($a, $b);
-            default: return array(false, 102);
+            case 'm': return $app -> method($params);
+            // case 'method2': return $triangle -> method2($a, $b);
+            // default: return array(false, 102);
         }
     }
     return array(false, 101);
