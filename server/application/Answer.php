@@ -6,7 +6,9 @@ class Answer {
         '101' => 'param method not setted',
         '102' => 'method not found',
         '404' => 'not found',
-        '9000' => 'unknown error'
+        '1001' => 'no login/password',
+        '1002' => 'error in auth user',
+        '9000' => 'unknown error',
     );
     static function response($data) {
         if ($data) {

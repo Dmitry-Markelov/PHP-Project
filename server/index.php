@@ -12,7 +12,8 @@ function result($params) {
     if ($method) {
         $app = new Application();
         switch ($method) {
-            case 'm': return $app -> method($params);
+            // case 'triangle': return $app -> triangle($params);
+            case 'login': return $app -> login($params);
             // case 'method2': return $triangle -> method2($a, $b);
             // default: return array(false, 102);
         }
