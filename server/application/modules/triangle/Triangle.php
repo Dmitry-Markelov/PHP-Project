@@ -4,16 +4,8 @@ class Triangle{
     function __construct() {
         
     }
-    public function triangle($params) {
-        $A['x'] = $params['Ax'];
-        $A['y'] = $params['Ay'];
-        $A['z'] = $params['Az'];
-        $B['x'] = $params['Bx'];
-        $B['y'] = $params['By'];
-        $B['z'] = $params['Bz'];
-        $C['x'] = $params['Cx'];
-        $C['y'] = $params['Cy'];
-        $C['z'] = $params['Cz'];
+    public function triangle($A, $B, $C) {
+
         print_r($A);
         print_r($B);
         print_r($C);

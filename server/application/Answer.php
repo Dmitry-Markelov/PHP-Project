@@ -5,6 +5,7 @@ class Answer {
     static $CODES = array(
         '101' => 'param method not setted',
         '102' => 'method not found',
+        '228' => 'false triangle points',
         '404' => 'not found',
         '1001' => 'no login/password',
         '1002' => 'error in auth user',
