@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
+import isAuth from '../routes/Login';
 
 function NavBar() {
-    const isAuth = false;
     return (
         <div>
             <nav>
-                <Link to="/">Home </Link>
+                <Link to="/User">Home </Link>
                 <Link to="/Register">Registration </Link>
-                {isAuth ? <Link to="/loguot">Logout</Link> : <Link to="/login">Login</Link>}
+                {isAuth ? <Link to="/login">Logout</Link> : <Link to="/login">Login</Link>}
+                {console.log(isAuth)}
             </nav>
         </div>
     )
