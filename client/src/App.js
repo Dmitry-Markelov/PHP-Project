@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
-import Login from './components/routes/Login';
-import Register from './components/routes/Register';
-import User from './components/routes/User';
+import Login from './routes/Login';
+import Register from './routes/Register';
+import User from './routes/User';
 
 const router = createBrowserRouter([
   {
