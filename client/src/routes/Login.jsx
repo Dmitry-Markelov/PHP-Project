@@ -1,7 +1,16 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
-export default function Login() {
+const Login = () => {
+
     return(
-        <h1>Login</h1>
+        <div>
+            <h1>Login</h1>
+            <button>
+                Enter
+            </button>
+        </div>
     )
 }
+
+export default Login;

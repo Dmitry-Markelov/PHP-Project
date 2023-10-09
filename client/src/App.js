@@ -1,13 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
-import UseRoutes from './Hooks/useRoutes';
+import { useRoutes } from './Hooks/useRoutes';
+import NavBar from './components/Navbar';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
-  const routes = UseRoutes();
+  const routes = useRoutes();
 
   return (
-    <div className="App"> 
-      {routes}
+    <div className="App">
+      <BrowserRouter>
+        <NavBar/> 
+        {routes}
+      </BrowserRouter>
     </div>
   );
 }

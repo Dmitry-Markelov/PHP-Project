@@ -1,31 +1,19 @@
 import React from "react";
-import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
+import {createBrowserRouter, Navigate, Route, Routes, RouterProvider} from 'react-router-dom';
 import Login from '../routes/Login';
 import Register from '../routes/Register';
 import User from '../routes/User';
 
 
-export const useRouters = () => {
-    const router = createBrowserRouter([
-        {
-          path: "/",
-          element: <Navigate to="Login"/>,
-        },{
-          path: "/login",
-          element: <Login/>,
-        },{
-          path: "/register",
-          element: <Register/>,
-        },
-        {
-          path: "/user",
-          element: <User/>,
-        },
-    ])
-    
+export const useRoutes = () => {
     return (
-        <RouterProvider router={router}/>
+      <Routes>
+        <Route path="/" element={ <Login/> }></Route>
+        <Route path="/login" element={ <Login/> }></Route>
+        <Route path="/register" element={ <Register/> }></Route>
+        <Route path="/user" element={ <User/> }></Route>
+      </Routes>
     )
 }
 
-export default useRouters;
+export default useRoutes
