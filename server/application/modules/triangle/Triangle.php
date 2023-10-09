@@ -1,5 +1,5 @@
 <?php
-//http://php-project/server/?method=triangle&Ax=-2&Ay=1&Az=2&Bx=3&By=-3&Bz=5&Cx=1&Cy=0&Cz=9
+//php-project/server/?method=triangle&Ax=-2&Ay=1&Az=2&Bx=3&By=-3&Bz=5&Cx=1&Cy=0&Cz=9
 class Triangle{
     function __construct() {
         

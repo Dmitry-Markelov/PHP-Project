@@ -1,5 +1,5 @@
 <?php
-//http://php-project/server/?method=login&login=Vasya&hash=188cf4fed77cd76b405b3c1ddcd93261&rnd=3
+//php-project/server/?method=login&login=Vasya&hash=188cf4fed77cd76b405b3c1ddcd93261&rnd=3
 class User {
     function __construct($db) {
         $this->db = $db;
