@@ -1,13 +1,22 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-import UseRoutes from './Hooks/useRoutes';
+import { useRoutes } from './Hooks/useRoutes';
+import NavBar from './components/Navbar';
+import { BrowserRouter } from 'react-router-dom';
+import { authContext } from './components/Contexts';
 
 function App() {
-  const routes = UseRoutes();
+  const [isAuth, setAuth] = useState(false);
+  const routes = useRoutes();
 
   return (
-    <div className="App"> 
-      {routes}
+    <div className="App">
+      <BrowserRouter>
+        <authContext.Provider value={{ isAuth: isAuth, setAuth: setAuth }}>
+          <NavBar/> 
+          {routes}
+        </authContext.Provider>
+      </BrowserRouter>
     </div>
   );
 }

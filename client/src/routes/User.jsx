@@ -1,7 +1,9 @@
 import React from "react";
 
-export default function User() {
+const User = () => {
     return(
         <h1>User</h1>
     )
 }
+
+export default User;
