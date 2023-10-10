@@ -6,6 +6,8 @@ require_once('application/modules/user/User.php');
 require_once('application/modules/triangle/Triangle.php');
 
 class Application {
+    private $user;
+    private $triangle;
     function __construct() {
         $db = new DB();
         $this->user = new User($db);
