@@ -6,6 +6,8 @@ require_once('application/modules/user/User.php');
 require_once('application/modules/triangle/Triangle.php');
 
 class Application {
+    private $user;
+    private $triangle;
     function __construct() {
         $db = new DB();
         $this->user = new User($db);
@@ -15,10 +17,9 @@ class Application {
     }
     function login ($params) {
         $login = $params['login'];
-        $hash = $params['hash'];
-        $rnd = $params['rnd'];
-        if ($login && $hash && $rnd) {
-            return $this->user->login($login, $hash, $rnd);
+        $password = $params['password'];
+        if ($login && $password) {
+            return $this->user->login($login, $password);
         }
         return array(false, 1001);
     }

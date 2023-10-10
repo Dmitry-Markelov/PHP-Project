@@ -1,7 +1,7 @@
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
-header('Acces-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 
 require_once('application/Answer.php');
 require_once('application/Application.php');
