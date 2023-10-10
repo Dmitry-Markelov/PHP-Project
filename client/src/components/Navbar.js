@@ -7,9 +7,25 @@ function NavBar() {
     return (
         <div>
             <nav>
-                {isAuth ? <Link to="/user">User </Link>: null}
-                <Link to="/Register">Registration </Link>
-                {isAuth ? <Link to="/login" onClick={() => setAuth(false)}>Logout</Link>: <Link to="/login">Login</Link>}
+                {isAuth ? <Link to="/user">
+                    <button>
+                        User
+                    </button>
+                </Link>: null}
+                {!isAuth ? <Link to="/register">
+                    <button>
+                        Registration
+                    </button>
+                </Link>: null}
+                {isAuth ? <Link to="/login" onClick={() => setAuth(false)}>
+                    <button>
+                        Logout
+                    </button>
+                </Link>: <Link to="/login">
+                    <button>
+                        Login
+                    </button>
+                </Link>}
             </nav>
         </div>
     )

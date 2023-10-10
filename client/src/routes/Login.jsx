@@ -8,7 +8,6 @@ const Login = () => {
         <div>
             <h1>Login</h1>
             <button onClick={() => setAuth(true)}>
-                {console.log(isAuth)}
                 Enter
             </button>
                 {isAuth ? <Navigate to="/user" replace={true}/> : <Navigate to=""/>}
