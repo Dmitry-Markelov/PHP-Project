@@ -14,7 +14,7 @@ export default class Server {
                 return answer.data;
             }
             //error
-            return null;
+            return false;
         } catch(e) {
             return null
         }

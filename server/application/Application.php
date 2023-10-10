@@ -17,10 +17,9 @@ class Application {
     }
     function login ($params) {
         $login = $params['login'];
-        $hash = $params['hash'];
-        $rnd = $params['rnd'];
-        if ($login && $hash && $rnd) {
-            return $this->user->login($login, $hash, $rnd);
+        $password = $params['password'];
+        if ($login && $password) {
+            return $this->user->login($login, $password);
         }
         return array(false, 1001);
     }

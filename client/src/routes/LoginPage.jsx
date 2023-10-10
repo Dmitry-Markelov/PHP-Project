@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import { Navigate } from "react-router-dom";
 import { authContext } from "../components/Contexts";
 import { ServerContext } from '../App';
+import './LoginPage.css';
 
 const LoginPage = () => {
     const {isAuth, setAuth} = useContext(authContext);
@@ -12,13 +13,16 @@ const LoginPage = () => {
 
     const handleLogin = async () => {
         const user = await server.login(loginRef.current.value, passwordRef.current.value);
-        console.log(user);
+        if (user) {
+            setAuth(true)
+            return user;
+        }
     }
 
     return(
         <div>
-            <h1>Login</h1>
             <div className="form">
+                <h1>Login</h1>
                 <input 
                     type="text" 
                     id="username" 
@@ -30,11 +34,11 @@ const LoginPage = () => {
                     id="password" 
                     placeholder="password"
                     ref={passwordRef}
-                />
+                /><br></br>
+                <button onClick={() => handleLogin()}>
+                    Enter
+                </button>
             </div>
-            <button onClick={() => handleLogin()}>
-                Enter
-            </button>
                 {isAuth ? <Navigate to="/user" replace={true}/> : <Navigate to=""/>}
         </div>
     )

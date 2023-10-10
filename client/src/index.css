@@ -7,6 +7,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'FedraSansPro';
+  src: url('./fonts/FendraSansPro/FedraSansPro-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Shancalluna';
+  src: url('./fonts/Shancalluna/Shancalluna_regular.ttf') format('truetype');
+  font-weight: bold;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
