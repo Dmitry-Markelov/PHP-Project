@@ -9,7 +9,7 @@ function NavBar() {
             <nav>
                 {isAuth ? <Link to="/user">User </Link>: null}
                 <Link to="/Register">Registration </Link>
-                {isAuth ? <Link to="/login" onClick={() => setAuth=false}>Logout</Link>: <Link to="/login">Login</Link>}
+                {isAuth ? <Link to="/login" onClick={() => setAuth(false)}>Logout</Link>: <Link to="/login">Login</Link>}
             </nav>
         </div>
     )
