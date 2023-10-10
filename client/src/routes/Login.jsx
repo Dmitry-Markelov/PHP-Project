@@ -1,9 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import { authContext } from "../components/Contexts";
 
 const Login = () => {
-    const [isAuth, setAuth] = useState(false);
+    const {isAuth, setAuth} = useContext(authContext);
     return(
         <div>
             <h1>Login</h1>
