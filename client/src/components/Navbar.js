@@ -23,7 +23,7 @@ function NavBar() {
                     </button>
                 </Link>: <Link to="/login">
                     <button>
-                        Login
+                        Sign In
                     </button>
                 </Link>}
             </nav>
