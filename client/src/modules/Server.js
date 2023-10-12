@@ -19,7 +19,10 @@ export default class Server {
             return null
         }
     }
-    login(login, password) {
-        return this.request('login', { login, password })
+    login(login, hash) {
+        return this.request('login', { login, hash })
+    }
+    getRndSalt(login) {
+        return this.request('getRndSalt', { login })
     }
 }

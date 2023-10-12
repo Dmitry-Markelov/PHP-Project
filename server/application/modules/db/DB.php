@@ -6,17 +6,16 @@ class DB {
             'id' => 1,
             'login' => 'Vasya',
             'username' => 'Василий',
-            'hash' => '875ca9b60b4f50290d61095dabd81a40',
-            'sault' => '8e79c387779a48f2fb1a528027542473',
+            'hash' => 'c082282cad5d535061e6205f6e3576a4',
         ),
         array(
             'id' => 2,
             'login' => 'Semen',
             'username' => 'Семён',
-            'hash' => '287a3e82957a4b8c0ecd8b49bb2828cd',
-            'sault' => '69c2c18301ebc517739679814536bbae',
+            'hash' => 'faaa930d100c5c0af294a4f582e27d33',
         )
     );
+    public $salt = '';
 
     public function getUser($login) {
         foreach ($this->users as $user) {
@@ -25,5 +24,12 @@ class DB {
             }
         }
         return null;
+    }
+    public function setSaltDB($salt) {
+        $this->salt = $salt;
+        return null;
+    }
+    public function getSaltDB() {
+        return $this->salt;
     }
 }

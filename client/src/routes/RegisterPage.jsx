@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import './Pages.css';
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
+    const [isReg, setReg] = useState(false);
     return(
     <div className="Sign-up">
         <div className="placeholder-top"></div>
@@ -27,9 +29,10 @@ const Register = () => {
                 id="ConfPassword" 
                 placeholder="Confirm password"
             />
-            <button>
+            <button onClick={() => setReg(true)}>
                 Sign Up
             </button>
+            {isReg ? <Navigate to="/login" replace='true'/>: null}
         </div>
     </div>
     )

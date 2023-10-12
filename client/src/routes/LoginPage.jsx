@@ -12,10 +12,17 @@ const LoginPage = () => {
     const passwordRef = useRef(null);
 
     const handleLogin = async () => {
-        const user = await server.login(loginRef.current.value, passwordRef.current.value);
-        if (user) {
-            setAuth(true)
-            return user;
+        const salt = await server.getRndSalt(loginRef.current.value);
+        if (salt[0] === true) {
+            var md5 = require('md5');
+            var hash = md5(loginRef.current.value+passwordRef.current.value);
+            // var hashS = md5(hash+salt[1]);
+            var hashS = md5(hash+'');
+            const user = await server.login(loginRef.current.value, hashS);
+            if (user[0] === true) {
+                setAuth(true)
+                return user;
+            }
         }
     }
 

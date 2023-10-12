@@ -7,12 +7,13 @@ class User {
         $db = new DB();
         $this->db = $db;
     }
-    function login($login, $password) {
+    function login($login, $hash) {
         $user = $this->db->getUser($login);
-        $sailtDB = $user['sault'];
         $hashDB = $user['hash'];
-        $hashS = md5(md5($login.$password).$sailtDB);
-        if ($hashDB === $hashS) {
+        $saltDB = $this->db->getSaltDB();
+        // return(array(true, $saltDB));
+        $hashS = md5($hashDB.$saltDB);
+        if ($hash === $hashS) {
             $token = md5($hashDB.rand());
             return array(true, array(
                 'name' => $user['username'],
@@ -21,5 +22,10 @@ class User {
             );
         }
         return array(false, 1002);
+    }
+    function getRndSalt($login) {
+        $salt = bin2hex(random_bytes(16));
+        $this->db->setSaltDB($salt);
+        return array(true, $salt);
     }
 }
