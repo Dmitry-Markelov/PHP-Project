@@ -47,7 +47,7 @@ const LoginPage = () => {
                     Sign In
                 </button>
             </div>
-                {isAuth ? <Navigate to="/user" replace={true}/> : <Navigate to=""/>}
+                {isAuth ? <Navigate to="/user" replace={true}/> : null}
         </div>
     )
 }

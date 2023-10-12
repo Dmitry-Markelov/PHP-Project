@@ -32,4 +32,15 @@ class DB {
     public function getSaltDB() {
         return $this->salt;
     }
+    public function createUser($login, $username, $hash) {
+        $salt = bin2hex(random_bytes(16));
+        $newUserId = count($this->users) + 1;
+        $newUser = array(
+            'id' => $newUserId,
+            'logun' => $login,
+            'username' => $username,
+            'hash' => $hash,
+            'salt' => $salt
+        )
+    }
 }
