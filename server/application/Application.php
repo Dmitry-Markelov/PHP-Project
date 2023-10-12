@@ -17,9 +17,16 @@ class Application {
     }
     function login ($params) {
         $login = $params['login'];
-        $password = $params['password'];
-        if ($login && $password) {
-            return $this->user->login($login, $password);
+        $hash = $params['hash'];
+        if ($login && $hash) {
+            return $this->user->login($login, $hash);
+        }
+        return array(false, 1001);
+    }
+    function getRndSalt ($params) {
+        $login = $params['login'];
+        if ($login) {
+            return $this->user->getRndSalt($login);
         }
         return array(false, 1001);
     }

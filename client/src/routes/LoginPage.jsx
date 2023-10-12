@@ -2,7 +2,7 @@ import React, { useContext, useRef } from "react";
 import { Navigate } from "react-router-dom";
 import { authContext } from "../components/Contexts";
 import { ServerContext } from '../App';
-import './LoginPage.css';
+import './Pages.css';
 
 const LoginPage = () => {
     const {isAuth, setAuth} = useContext(authContext);
@@ -12,34 +12,42 @@ const LoginPage = () => {
     const passwordRef = useRef(null);
 
     const handleLogin = async () => {
-        const user = await server.login(loginRef.current.value, passwordRef.current.value);
-        if (user) {
-            setAuth(true)
-            return user;
+        const salt = await server.getRndSalt(loginRef.current.value);
+        if (salt[0] === true) {
+            var md5 = require('md5');
+            var hash = md5(loginRef.current.value+passwordRef.current.value);
+            // var hashS = md5(hash+salt[1]);
+            var hashS = md5(hash+'');
+            const user = await server.login(loginRef.current.value, hashS);
+            if (user[0] === true) {
+                setAuth(true)
+                return user;
+            }
         }
     }
 
     return(
-        <div>
+        <div className="sign-in">
+            <div className="placeholder-top"></div>
             <div className="form">
-                <h1>Login</h1>
+                <h1>Sign In</h1>
                 <input 
-                    type="text" 
-                    id="username" 
-                    placeholder="login"
+                    type="text"
+                    id="login" 
+                    placeholder="Login"
                     ref={loginRef}
                 />
                 <input 
                     type="password" 
                     id="password" 
-                    placeholder="password"
+                    placeholder="Password"
                     ref={passwordRef}
-                /><br></br>
+                />
                 <button onClick={() => handleLogin()}>
-                    Enter
+                    Sign In
                 </button>
             </div>
-                {isAuth ? <Navigate to="/user" replace={true}/> : <Navigate to=""/>}
+                {isAuth ? <Navigate to="/user" replace={true}/> : null}
         </div>
     )
 }
