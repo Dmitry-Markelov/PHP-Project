@@ -41,6 +41,6 @@ class DB {
             'username' => $username,
             'hash' => $hash,
             'salt' => $salt
-        )
+        );
     }
 }

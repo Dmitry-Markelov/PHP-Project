@@ -1,11 +1,14 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { authContext } from "../components/Contexts";
 import { ServerContext } from '../App';
+import md5 from "md5";
 import './Pages.css';
 
 const LoginPage = () => {
     const {isAuth, setAuth} = useContext(authContext);
+    const {login, setLogin} = useState('');
+    const [username, setUsername] = useState('');
     const server = useContext(ServerContext);
 
     const loginRef = useRef(null);
@@ -14,12 +17,12 @@ const LoginPage = () => {
     const handleLogin = async () => {
         const salt = await server.getRndSalt(loginRef.current.value);
         if (salt[0] === true) {
-            var md5 = require('md5');
             var hash = md5(loginRef.current.value+passwordRef.current.value);
             // var hashS = md5(hash+salt[1]);
             var hashS = md5(hash+'');
             const user = await server.login(loginRef.current.value, hashS);
             if (user[0] === true) {
+                setUsername(user[1].name);
                 setAuth(true)
                 return user;
             }
@@ -47,7 +50,7 @@ const LoginPage = () => {
                     Sign In
                 </button>
             </div>
-                {isAuth ? <Navigate to="/user" replace={true}/> : null}
+                {isAuth ? <Navigate to="/user" replace={true} state={{ login: loginRef.current.value, username: username} }/> : null}
         </div>
     )
 }
