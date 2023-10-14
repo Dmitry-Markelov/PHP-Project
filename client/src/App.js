@@ -5,7 +5,7 @@ import NavBar from './components/Navbar';
 import { BrowserRouter } from 'react-router-dom';
 import { authContext } from './components/Contexts';
 import logo from './logo.svg';
-import Server from './modules/Server';
+import Server from './modules/Server/Server';
 import { HOST } from './config';
 
 export const ServerContext = React.createContext(null);
