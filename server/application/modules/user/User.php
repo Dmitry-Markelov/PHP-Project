@@ -15,6 +15,9 @@ class User {
         }
         return array(false, 1002);
     }
+    function register($username, $password, $userName) {
+        return $this->db->setUserByLogin($username, $password, $userName);
+    }
     function getRndSalt($login) {
         $salt = bin2hex(random_bytes(16));
         $this->db->setSaltDB($salt);

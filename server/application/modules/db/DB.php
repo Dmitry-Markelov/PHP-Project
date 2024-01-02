@@ -29,36 +29,12 @@ class DB {
         return $sth->fetch(PDO::FETCH_OBJ);
     }
 
-    public $salt = '';
-
     public function getUserByLogin($login) {
         return $this->query("SELECT * FROM user WHERE login=?", [$login]);
     }
-
-    public function getUser($login) {
-        // foreach ($this->users as $user) {
-        //     if($login == $user['login']) {
-        //         return $user;
-        //     }
-        // }
-        return null;
-    }
-    public function setSaltDB($salt) {
-        $this->salt = $salt;
-        return null;
-    }
-    public function getSaltDB() {
-        return $this->salt;
-    }
-    public function createUser($login, $username, $hash) {
-        // $salt = bin2hex(random_bytes(16));
-        // $newUserId = count($this->users) + 1;
-        // $newUser = array(
-        //     'id' => $newUserId,
-        //     'logun' => $login,
-        //     'username' => $username,
-        //     'hash' => $hash,
-        //     'salt' => $salt
-        // );
+    
+    public function setUserByLogin($login, $password, $userName) {
+        $id_user = uniqid();
+        return $this->execute("INSERT into user (id_user, login, password, username) VALUES (?, ?, ?, ?)", [$id_user, $login, $password, $userName]);
     }
 }

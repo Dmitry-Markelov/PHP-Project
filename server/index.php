@@ -13,6 +13,7 @@ function result($params) {
         $app = new Application();
         switch ($method) {
             case 'login': return $app -> login($params);
+            case 'register': return $app -> register($params);
             case 'triangle': return $app -> triangle($params);
             case 'getRndSalt': return $app -> getRndSalt($params);
             default: return array(false, 102);

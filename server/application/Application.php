@@ -24,6 +24,15 @@ class Application {
         }
         return array(false, 1001);
     }
+    function register ($params) {
+        $login = $params['login'];
+        $password = $params['password'];
+        $userName = $params['username'];
+        if ($login && $password && $userName) {
+            return $this->user->register($login, $password, $userName);
+        }
+        return array(false, 1001);
+    }
     function getRndSalt ($params) {
         $login = $params['login'];
         if ($login) {
