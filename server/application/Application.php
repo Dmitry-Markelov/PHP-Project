@@ -11,15 +11,25 @@ class Application {
     function __construct() {
         $db = new DB();
         $this->user = new User($db);
-        $this->triangle = new Triangle();
+        // $this->triangle = new Triangle();
         // $this -> chat = new Chat($db);
         // $this -> game = new Game($db);
     }
     function login ($params) {
         $login = $params['login'];
         $hash = $params['hash'];
+
         if ($login && $hash) {
             return $this->user->login($login, $hash);
+        }
+        return array(false, 1001);
+    }
+    function register ($params) {
+        $login = $params['login'];
+        $password = $params['password'];
+        $userName = $params['username'];
+        if ($login && $password && $userName) {
+            return $this->user->register($login, $password, $userName);
         }
         return array(false, 1001);
     }

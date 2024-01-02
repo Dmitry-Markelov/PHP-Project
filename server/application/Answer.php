@@ -7,13 +7,13 @@ class Answer {
         '102' => 'method not found',
         '228' => 'false triangle points',
         '404' => 'not found',
-        '1001' => 'no login/password',
+        '1001' => 'invalid arguments',
         '1002' => 'error in auth user',
         '9000' => 'unknown error',
     );
     static function response($data) {
         if ($data) {
-            if (count($data) === 2 && !$data[0]) {
+            if (is_array($data) && count($data) === 2 && !$data[0]) {
                 $code = $data[1];
                 return array(
                     'result' => 'error',
