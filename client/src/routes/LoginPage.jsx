@@ -15,18 +15,28 @@ const LoginPage = () => {
     const passwordRef = useRef(null);
 
     const handleLogin = async () => {
-        const salt = await server.getRndSalt(loginRef.current.value);
-        if (salt[0] === true) {
-            var hash = md5(loginRef.current.value+passwordRef.current.value);
-            // var hashS = md5(hash+salt[1]);
-            var hashS = md5(hash+'');
-            const user = await server.login(loginRef.current.value, hashS);
+        const hash = md5(loginRef.current.value+passwordRef.current.value)
+        const user = await server.login(loginRef.current.value, hash)
+        console.log(user)
+        if (user) {
             if (user[0] === true) {
                 setUsername(user[1].name);
                 setAuth(true)
                 return user;
             }
         }
+        // const salt = await server.getRndSalt(loginRef.current.value);
+        // if (salt[0] === true) {
+        //     var hash = md5(loginRef.current.value+passwordRef.current.value);
+        //     // var hashS = md5(hash+salt[1]);
+        //     var hashS = md5(hash+'');
+        //     const user = await server.login(loginRef.current.value, hashS);
+        //     if (user[0] === true) {
+        //         setUsername(user[1].name);
+        //         setAuth(true)
+        //         return user;
+        //     }
+        // }
     }
 
     return(

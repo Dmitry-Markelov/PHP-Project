@@ -11,13 +11,14 @@ class Application {
     function __construct() {
         $db = new DB();
         $this->user = new User($db);
-        $this->triangle = new Triangle();
+        // $this->triangle = new Triangle();
         // $this -> chat = new Chat($db);
         // $this -> game = new Game($db);
     }
     function login ($params) {
         $login = $params['login'];
         $hash = $params['hash'];
+
         if ($login && $hash) {
             return $this->user->login($login, $hash);
         }
