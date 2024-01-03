@@ -3,11 +3,14 @@ export class Store {
         name: '',
         isAuth: false,
         token: '',
+        uuid: '',
     }
 
-    setUser(name: string, token: string) {
+    setUser(name: string, token: string, uuid: string) {
         this.user.name = name;
         this.user.token = token;
+        this.user.uuid = uuid;
+        this.user.isAuth = true;
     }
 
     getUser() {
@@ -20,5 +23,9 @@ export class Store {
 
     isAuth() {
         return this.user.isAuth;
+    }
+
+    isAuthLogOut() {
+        this.user.isAuth = false;
     }
 }

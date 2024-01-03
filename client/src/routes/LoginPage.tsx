@@ -1,45 +1,44 @@
 import React, { useContext, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
-// import { authContext } from "../components/Contexts";
-import { ServerContext } from '../App';
+import { ServerContext, StoreContext } from '../App';
 import md5 from "md5";
 import './Pages.css';
+import { getUuid } from "../Hooks/useToken";
 
 const LoginPage = () => {
-    // const {isAuth, setAuth} = useContext(authContext);
-    // const {login, setLogin} = useState('');
-    const [username, setUsername] = useState('');
     const server = useContext(ServerContext);
+    const store = useContext(StoreContext);
+    const uuid = getUuid();
 
     const loginRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(store.isAuth());
+
     const handleLogin = async () => {
-        if(loginRef.current?.value && passwordRef.current?.value){
-            const hash = md5(loginRef.current.value+passwordRef.current.value)
+        if (loginRef.current?.value && passwordRef.current?.value) {
+            const hash = md5(loginRef.current.value + passwordRef.current.value)
             const user = await server.login(loginRef.current.value, hash)
-            console.log(user)
             if (user) {
-                
-                // setAuth(true)
+                setIsAuthenticated(true);
             }
         }
     }
 
-    return(
+    return (
         <div className="sign-in">
             <div className="placeholder-top"></div>
             <div className="form">
                 <h1>Sign In</h1>
-                <input 
+                <input
                     type="text"
-                    id="login" 
+                    id="login"
                     placeholder="Login"
                     ref={loginRef}
                 />
-                <input 
-                    type="password" 
-                    id="password" 
+                <input
+                    type="password"
+                    id="password"
                     placeholder="Password"
                     ref={passwordRef}
                 />
@@ -47,7 +46,7 @@ const LoginPage = () => {
                     Sign In
                 </button>
             </div>
-                {/* {isAuth ? <Navigate to="/user" replace={true} state={{ login: loginRef.current.value, username: username} }/> : null} */}
+            {isAuthenticated ? <Navigate to="/user" replace={true} state={{ login: loginRef.current?.value, username: 'Name'} }/> : null}
         </div>
     )
 }

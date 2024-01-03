@@ -22,7 +22,16 @@ class Application {
         if ($login && $hash) {
             return $this->user->login($login, $hash);
         }
-        return array(false, 1001);
+        return ['error' => 1001];
+    }
+    function autoLogin ($params) {
+        $token = $params['token'];
+        $uuid = $params['uuid'];
+
+        if ($token && $uuid) {
+            return $this->user->autoLogin($token, $uuid);
+        }
+        return ['error' => 10000]; //обработать ошибку
     }
     function register ($params) {
         $login = $params['login'];
@@ -31,14 +40,14 @@ class Application {
         if ($login && $password && $userName) {
             return $this->user->register($login, $password, $userName);
         }
-        return array(false, 1001);
+        return ['error' => 1001]; //обработать ошибку
     }
     function getRndSalt ($params) {
         $login = $params['login'];
         if ($login) {
             return $this->user->getRndSalt($login);
         }
-        return array(false, 1001);
+        return ['error' => 1001]; //обработать ошибку
     }
     function triangle ($params) {
         $A['x'] = $params['Ax'];
@@ -55,6 +64,6 @@ class Application {
             isset($C['x']) && isset($C['y']) && isset($C['z'])) {
             return $this->triangle->triangle($A, $B, $C);
         }
-        return array(false, 228);
+        return ['error' => 228];
     }
 }

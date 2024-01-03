@@ -6,4 +6,5 @@ export type TError = {
 export type TUser = {
     name: string;
     token: string;
+    uuid: string;
 }

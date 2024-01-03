@@ -33,8 +33,19 @@ class DB {
         return $this->query("SELECT * FROM user WHERE login=?", [$login]);
     }
     
-    public function setUserByLogin($login, $password, $userName) {
-        $id_user = uniqid();
-        return $this->execute("INSERT into user (id_user, login, password, username) VALUES (?, ?, ?, ?)", [$id_user, $login, $password, $userName]);
+    public function getUserById($uuid) {
+        return $this->query("SELECT * FROM user WHERE id_user=?", [$uuid]);
     }
+
+    public function setUserByLogin($login, $password, $userName, $uuid, $token) {
+        return $this->execute("INSERT INTO user (id_user, login, password, username, token) VALUES (?, ?, ?, ?, ?)", [$uuid, $login, $password, $userName, $token]);
+    }
+
+    public function updateToken($login, $token) {
+        return $this->execute("UPDATE user SET token=? WHERE login=?", [$token, $login]);
+    }
+
+    // public checkToken($token) {
+    //     // return $this->
+    // }
 }

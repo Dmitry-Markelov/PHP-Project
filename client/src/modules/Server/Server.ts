@@ -1,3 +1,5 @@
+import { getToken, getUuid, setToken, setUuid } from "../../Hooks/useToken";
+import { Store } from "../Store/Store";
 import {
     TUser,
     TError,
@@ -5,9 +7,15 @@ import {
 
 export default class Server {
     private HOST: string;
+    private store: Store;
+    private token: string | null;
+    private uuid: string | null;
 
-    constructor(HOST: string) {
+    constructor(HOST: string, store: Store) {
         this.HOST = HOST;
+        this.store = store;
+        this.token = getToken();
+        this.uuid = getUuid();
     }
 
     async request<T>(method: string, params: any = {}): Promise<T | null> {
@@ -28,10 +36,22 @@ export default class Server {
     }
     async login(login: string, hash: string): Promise<TUser | null> {
         const result = await this.request<TUser>('login', { login, hash });
-        if (result) {
-            return result;
+        if (result?.token && result?.uuid) {
+            setToken(result.token);
+            setUuid(result.uuid);
+            this.token = result.token;
+            this.store.setUser(result.name, result.token, result.uuid);
         }
         return null;
+    }
+    async autoLogin() {
+        const result = await this.request<TUser>('autoLogin', { token: getToken(), uuid: this.uuid });
+        if (result?.token) {
+            setToken(result.token);
+            this.token = result.token;
+            this.store.setUser(result.name, result.token, result.uuid);
+        }
+        return result;
     }
     getRndSalt(login: string) {
         return this.request('getRndSalt', { login })

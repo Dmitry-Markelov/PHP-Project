@@ -1,10 +1,16 @@
-import { Link } from 'react-router-dom';
-import { authContext } from './Contexts';
+import { Link, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import React from 'react';
+import { StoreContext } from '../App';
 
 const NavBar = () => {
-    // const {isAuth, setAuth} = useContext(authContext);
+    const store = useContext(StoreContext);
+
+    const handleLogOut = () => {
+        localStorage.clear();
+        store.isAuthLogOut();
+        <Navigate to="/main" replace={true} />
+    }
     return (
         <div>
             <nav>
@@ -24,7 +30,7 @@ const NavBar = () => {
                 </Link>
                 {/* {isAuth ? <Link to="/login" onClick={() => setAuth(false)}> */}
                 <Link to="/login">
-                    <button>
+                    <button onClick={() => handleLogOut()}>
                         Logout
                     </button>
                 </Link>
