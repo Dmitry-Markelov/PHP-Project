@@ -1,28 +1,27 @@
 import React, { useContext, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { authContext } from "../components/Contexts";
+// import { authContext } from "../components/Contexts";
 import { ServerContext } from '../App';
 import md5 from "md5";
 import './Pages.css';
 
 const LoginPage = () => {
-    const {isAuth, setAuth} = useContext(authContext);
-    const {login, setLogin} = useState('');
+    // const {isAuth, setAuth} = useContext(authContext);
+    // const {login, setLogin} = useState('');
     const [username, setUsername] = useState('');
     const server = useContext(ServerContext);
 
-    const loginRef = useRef(null);
-    const passwordRef = useRef(null);
+    const loginRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
 
     const handleLogin = async () => {
-        const hash = md5(loginRef.current.value+passwordRef.current.value)
-        const user = await server.login(loginRef.current.value, hash)
-        console.log(user)
-        if (user) {
-            if (user[0] === true) {
-                setUsername(user[1].name);
-                setAuth(true)
-                return user;
+        if(loginRef.current?.value && passwordRef.current?.value){
+            const hash = md5(loginRef.current.value+passwordRef.current.value)
+            const user = await server.login(loginRef.current.value, hash)
+            console.log(user)
+            if (user) {
+                
+                // setAuth(true)
             }
         }
     }
@@ -48,7 +47,7 @@ const LoginPage = () => {
                     Sign In
                 </button>
             </div>
-                {isAuth ? <Navigate to="/user" replace={true} state={{ login: loginRef.current.value, username: username} }/> : null}
+                {/* {isAuth ? <Navigate to="/user" replace={true} state={{ login: loginRef.current.value, username: username} }/> : null} */}
         </div>
     )
 }

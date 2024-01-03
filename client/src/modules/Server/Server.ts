@@ -1,9 +1,16 @@
+import {
+    TUser,
+    TError,
+} from "./types";
+
 export default class Server {
-    constructor(HOST) {
+    private HOST: string;
+
+    constructor(HOST: string) {
         this.HOST = HOST;
     }
 
-    async request(method, params) {
+    async request<T>(method: string, params: any = {}): Promise<T | null> {
         try {
             const str = Object.keys(params)
                 .map(key => `${key}=${params[key]}`)
@@ -14,15 +21,19 @@ export default class Server {
                 return answer.data;
             }
             //error
-            return false;
+            return null;
         } catch(e) {
             return null
         }
     }
-    login(login, hash) {
-        return this.request('login', { login, hash })
+    async login(login: string, hash: string): Promise<TUser | null> {
+        const result = await this.request<TUser>('login', { login, hash });
+        if (result) {
+            return result;
+        }
+        return null;
     }
-    getRndSalt(login) {
+    getRndSalt(login: string) {
         return this.request('getRndSalt', { login })
     }
 }
