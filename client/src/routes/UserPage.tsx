@@ -3,17 +3,17 @@ import { authContext } from "../components/Contexts";
 import { Navigate, useLocation } from "react-router-dom";
 
 const User = () => {
-    const {isAuth, setAuth} = useContext(authContext);
+    // const {isAuth, setAuth} = useContext(authContext);
     const { state } = useLocation();
     
     return(
-        isAuth ? 
+        // isAuth ? 
         <div>
             <h1>User</h1>
             <p>Login: {state.login}</p>
             <p>Username: {state.username}</p>
         </div>
-        :<Navigate to="/login"/>
+        // :<Navigate to="/login"/>
     )
 }
 

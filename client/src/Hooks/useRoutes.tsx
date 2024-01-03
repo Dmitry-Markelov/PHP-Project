@@ -17,5 +17,3 @@ export const useRoutes = () => {
       </Routes>
     )
 }
-
-export default useRoutes

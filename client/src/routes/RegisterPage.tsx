@@ -32,7 +32,7 @@ const Register = () => {
             <button onClick={() => setReg(true)}>
                 Sign Up
             </button>
-            {isReg ? <Navigate to="/login" replace='true'/>: null}
+            {/* {isReg ? <Navigate to="/login" replace='true'/>: null} */}
         </div>
     </div>
     )
