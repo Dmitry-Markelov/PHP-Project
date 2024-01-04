@@ -41,6 +41,7 @@ class User {
             $uuid = uniqid();
             $token = $this->generateToken();
             $this->db->setUserByLogin($login, $hash, $userName, $uuid, $token);
+            $this->db->addNewPlayerById($uuid, $userName);
             return [
                 'name' => $userName,
                 'token' => $token,
@@ -48,7 +49,37 @@ class User {
             ];
         }
         return ['error'=> 1004];
-
+    }
+    function updateScore($token, $uuid, $score) {
+        $user = $this->db->getUserById($uuid);
+        if($token == $user->token) {
+            $myScore = $this->db->getMyScoreById($uuid);
+            if($score >= $myScore->score) {
+                $result = $this->db->updateScoreById($uuid, $score); //добавить проверку на честный счёт
+                if ($result) {
+                    return true;
+                }
+            } else {
+                return ['error'=> 0]; //обработать ошибку
+            }
+        }
+        return ['error' => 0]; //обработать ошибку
+    }
+    function getScene($token, $uuid) {
+        $result = ['myScore' => null, 'players' => null];
+        $user = $this->db->getUserById($uuid);
+        if($token == $user->token) {
+            $myScore = $this->db->getMyScoreById($uuid);
+            if ($myScore) {
+                $result['myScore'] = $myScore->score;
+            }
+            $players = $this->db->GetTopPlayers();
+            if ($players) {
+                $result['players'] = $players;
+            }
+            return $result;
+        }
+        return ['error' => 0]; //обработать ошибку
     }
     function getRndSalt($login) {
         $salt = bin2hex(random_bytes(16));

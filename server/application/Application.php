@@ -42,6 +42,26 @@ class Application {
         }
         return ['error' => 1001]; //обработать ошибку
     }
+    function logout ($params) {
+        //написать logOut
+    }
+    function updateScore($params) {
+        $token = $params['token'];
+        $uuid = $params['uuid'];
+        $score = $params['score'];
+        if ($token && $uuid && $score) {
+            return $this->user->updateScore($token, $uuid, $score);
+        }
+        return ['error'=> 0]; //обработать ошибку
+    }
+    function getScene($params) {
+        $token = $params['token'];
+        $uuid = $params['uuid'];
+        if ($token) {
+            return $this->user->getScene($token, $uuid);
+        }
+        return ['error'=> 0]; //обработать ошибку
+    }
     function getRndSalt ($params) {
         $login = $params['login'];
         if ($login) {

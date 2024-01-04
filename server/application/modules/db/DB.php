@@ -29,6 +29,12 @@ class DB {
         return $sth->fetch(PDO::FETCH_OBJ);
     }
 
+    private function queryAll($sql, $params = []) {
+        $sth = $this->pdo->prepare($sql);
+        $sth->execute($params);
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getUserByLogin($login) {
         return $this->query("SELECT * FROM user WHERE login=?", [$login]);
     }
@@ -45,7 +51,19 @@ class DB {
         return $this->execute("UPDATE user SET token=? WHERE login=?", [$token, $login]);
     }
 
-    // public checkToken($token) {
-    //     // return $this->
-    // }
+    public function updateScoreById($uuid, $score) {
+        return $this->execute("UPDATE score SET score=? WHERE id_user=?", [$score, $uuid]);
+    }
+
+    public function addNewPlayerById($uuid, $name) {
+        return $this->execute("INSERT INTO score (id_user, name) VALUES (?, ?)", [$uuid, $name]);
+    }
+
+    public function getTopPlayers() {
+        return $this->queryAll("SELECT name, score FROM score ORDER BY score DESC LIMIT 5");
+    }
+
+    public function getMyScoreById($uuid) {
+        return $this->query("SELECT score FROM score WHERE id_user=?", [$uuid]);
+    }
 }

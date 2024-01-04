@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import NavBar from './components/Navbar';
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-// import logo from './logo.svg';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { HOST } from './config';
 import Server from './modules/Server/Server';
 import { Store } from './modules/Store/Store';
