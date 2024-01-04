@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import { ServerContext, StoreContext } from '../App';
 import md5 from "md5";
 import './Pages.css';
-import { getToken, getUuid } from "../Hooks/useToken";
 
 const LoginPage = () => {
     const server = useContext(ServerContext);

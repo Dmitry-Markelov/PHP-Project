@@ -21,3 +21,8 @@ export type TPlayer = {
 }
 
 export type TPlayers = TPlayer[];
+
+export type TGetScene = {
+    myScore: number;
+    players: TPlayer[];
+}

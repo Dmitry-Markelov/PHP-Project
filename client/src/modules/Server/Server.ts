@@ -4,6 +4,7 @@ import {
     TUser,
     TError,
     TAutoLogin,
+    TGetScene,
 } from "./types";
 
 export default class Server {
@@ -66,6 +67,13 @@ export default class Server {
             return result;
         }
         return null;
+    }
+    async getScene(): Promise<TGetScene | null> {
+        const result = await this.request<TGetScene>('getScene', { token: getToken(), uuid: getUuid() });
+        return result;
+    }
+    sendMyCounter(score: number) {
+        return this.request<TGetScene>('updateScore', { token: getToken(), uuid: getUuid(), score });
     }
     getRndSalt(login: string) {
         return this.request('getRndSalt', { login })
