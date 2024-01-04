@@ -14,3 +14,10 @@ export type TAutoLogin = {
     newToken: string;
     uuid: string;
 }
+
+export type TPlayer = {
+    name: string;
+    score: number;
+}
+
+export type TPlayers = TPlayer[];
