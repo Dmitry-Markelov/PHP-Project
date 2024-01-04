@@ -1,42 +1,39 @@
-import { Link } from 'react-router-dom';
-import { authContext } from './Contexts';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import React from 'react';
+import { StoreContext } from '../App';
+import { NavButton } from './NavButon';
 
-const NavBar = () => {
-    // const {isAuth, setAuth} = useContext(authContext);
+type TNavBar = {
+    isAuth: boolean;
+}
+
+const NavBar = ({ isAuth }: TNavBar) => {
+    const store = useContext(StoreContext);
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        localStorage.clear();
+        store.isAuthLogOut();
+        navigate('/main', { replace: true });
+    }
     return (
-        <div>
-            <nav>
-                {/* {isAuth ? <Link to="/user"> */}
-                <Link to="/user">
-                    <button>
-                        User
-                    </button>
-                {/* </Link>: null} */}
-                </Link>
-                {/* {!isAuth ? <Link to="/register"> */}
-                <Link to="/register">
-                    <button>
-                        Registration
-                    </button>
-                {/* </Link>: null} */}
-                </Link>
-                {/* {isAuth ? <Link to="/login" onClick={() => setAuth(false)}> */}
-                <Link to="/login">
-                    <button>
-                        Logout
-                    </button>
-                </Link>
-                {/* </Link>: <Link to="/login"> */}
-                <Link to="/login">
-                    <button>
-                        Sign In
-                    </button>
-                {/* </Link>} */}
-                </Link>
-            </nav>
-        </div>
+        <>
+            <header className='App-header'>
+                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                <div className='header-right'>
+                    <nav>
+                        {isAuth && <NavButton to='/user' text='User' />}
+                        {!isAuth && <NavButton to='/register' text='Register' />}
+                        {!isAuth && <NavButton to='/login' text='Sig In' />}
+                        {isAuth && <button onClick={() => handleLogOut()}>Log Out</button>}
+                    </nav>
+                </div>
+            </header>
+            <div className='Content'>
+                <Outlet />
+            </div>
+        </>
     )
 }
 

@@ -6,4 +6,11 @@ export type TError = {
 export type TUser = {
     name: string;
     token: string;
+    uuid: string;
+}
+
+export type TAutoLogin = {
+    name: string;
+    newToken: string;
+    uuid: string;
 }

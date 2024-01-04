@@ -1,7 +1,7 @@
 import React from "react";
 
 const MainPage = () => {
-    return(
+    return (
         <div>
             <h1>Main</h1>
         </div>
