@@ -35,10 +35,10 @@ class Application {
     }
     function register ($params) {
         $login = $params['login'];
-        $password = $params['password'];
+        $hash = $params['hash'];
         $userName = $params['username'];
-        if ($login && $password && $userName) {
-            return $this->user->register($login, $password, $userName);
+        if ($login && $hash && $userName) {
+            return $this->user->register($login, $hash, $userName);
         }
         return ['error' => 1001]; //обработать ошибку
     }

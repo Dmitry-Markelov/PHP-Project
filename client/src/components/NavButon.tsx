@@ -7,11 +7,11 @@ type TNavButton = {
     className?: string
 }
 
-export function NavButton({to, text, className} : TNavButton) {
+export function NavButton({ to, text, className }: TNavButton) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(to, {replace: true})
+        navigate(to, { replace: true })
     }
 
     return (

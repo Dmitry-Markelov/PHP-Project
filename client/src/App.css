@@ -1,7 +1,8 @@
-*{
+* {
   font-family: FedraSansPro;
   /* font-family: Shancalluna; */
 }
+
 .App {
   text-align: center;
 }
@@ -55,8 +56,10 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
-    transform: rotate(3600deg) rotate3d(10, 10, 10, 3600deg);;
+    transform: rotate(3600deg) rotate3d(10, 10, 10, 3600deg);
+    ;
   }
 }
 

@@ -23,9 +23,11 @@ class User {
         $user = $this->db->getUserById($uuid);
         if ($user) {
             if ($user->token == $token) {
+                $newToken = $this->generateToken();
+                $this->db->updateToken($user->login, $newToken);
                 return [
                     'name' => $user->username,
-                    'token' => $token,
+                    'newToken' => $newToken,
                     'uuid' => $user->id_user,
                 ];
             }
@@ -33,10 +35,20 @@ class User {
         }
         return ['error'=> 0];
     }
-    function register($username, $password, $userName) {
-        $uuid = uniqid();
-        $token = $this->generateToken();
-        return $this->db->setUserByLogin($username, $password, $userName, $uuid, $token);
+    function register($login, $hash, $userName) {
+        $user = $this->db->getUserByLogin($login);
+        if (!$user) {
+            $uuid = uniqid();
+            $token = $this->generateToken();
+            $this->db->setUserByLogin($login, $hash, $userName, $uuid, $token);
+            return [
+                'name' => $userName,
+                'token' => $token,
+                'uuid' => $uuid,
+            ];
+        }
+        return ['error'=> 1004];
+
     }
     function getRndSalt($login) {
         $salt = bin2hex(random_bytes(16));

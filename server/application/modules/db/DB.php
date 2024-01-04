@@ -37,8 +37,8 @@ class DB {
         return $this->query("SELECT * FROM user WHERE id_user=?", [$uuid]);
     }
 
-    public function setUserByLogin($login, $password, $userName, $uuid, $token) {
-        return $this->execute("INSERT INTO user (id_user, login, password, username, token) VALUES (?, ?, ?, ?, ?)", [$uuid, $login, $password, $userName, $token]);
+    public function setUserByLogin($login, $hash, $userName, $uuid, $token) {
+        return $this->execute("INSERT INTO user (id_user, login, password, username, token) VALUES (?, ?, ?, ?, ?)", [$uuid, $login, $hash, $userName, $token]);
     }
 
     public function updateToken($login, $token) {

@@ -1,5 +1,5 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import React from 'react';
 import { StoreContext } from '../App';
 import { NavButton } from './NavButon';
@@ -10,12 +10,12 @@ type TNavBar = {
 
 const NavBar = ({ isAuth }: TNavBar) => {
     const store = useContext(StoreContext);
-    console.log(isAuth)
+    const navigate = useNavigate();
 
     const handleLogOut = () => {
         localStorage.clear();
         store.isAuthLogOut();
-        <Navigate to="/main" replace={true} />
+        navigate('/main', { replace: true });
     }
     return (
         <>

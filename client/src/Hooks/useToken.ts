@@ -25,13 +25,13 @@ const removeUuid = () => {
 
 const getToken = () => {
     const token = localStorage.getItem(TOKEN_KEY);
-    if(token) return token;
+    if (token) return token;
     return null;
 }
 
 const getUuid = () => {
     const uuid = localStorage.getItem(UUID_KEY);
-    if(uuid) return uuid;
+    if (uuid) return uuid;
     return null;
 }
 

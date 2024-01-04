@@ -31,7 +31,7 @@ export default class Server {
             }
             //error
             return null;
-        } catch(e) {
+        } catch (e) {
             return null
         }
     }
@@ -55,6 +55,17 @@ export default class Server {
             return result;
         }
         return result;
+    }
+    async register(login: string, hash: string, username: string): Promise<TUser | null> {
+        const result = await this.request<TUser>('register', { login, hash, username });
+        if (result?.token && result?.uuid) {
+            setToken(result.token);
+            setUuid(result.uuid);
+            this.token = result.token;
+            this.store.setUser(result.name, result.token, result.uuid);
+            return result;
+        }
+        return null;
     }
     getRndSalt(login: string) {
         return this.request('getRndSalt', { login })

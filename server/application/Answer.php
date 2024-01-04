@@ -11,6 +11,7 @@ class Answer {
         '1001' => 'invalid arguments',
         '1002' => 'error in auth user',
         '1003' => 'token is outdated',
+        '1004' => 'this login is already taken',
         '9000' => 'unknown error',
         '10000' => 'что-то с автологином',
     );
