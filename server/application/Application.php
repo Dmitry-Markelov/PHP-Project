@@ -22,23 +22,52 @@ class Application {
         if ($login && $hash) {
             return $this->user->login($login, $hash);
         }
-        return array(false, 1001);
+        return ['error' => 1001];
+    }
+    function autoLogin ($params) {
+        $token = $params['token'];
+        $uuid = $params['uuid'];
+
+        if ($token && $uuid) {
+            return $this->user->autoLogin($token, $uuid);
+        }
+        return ['error' => 10000]; //обработать ошибку
     }
     function register ($params) {
         $login = $params['login'];
-        $password = $params['password'];
+        $hash = $params['hash'];
         $userName = $params['username'];
-        if ($login && $password && $userName) {
-            return $this->user->register($login, $password, $userName);
+        if ($login && $hash && $userName) {
+            return $this->user->register($login, $hash, $userName);
         }
-        return array(false, 1001);
+        return ['error' => 1001]; //обработать ошибку
+    }
+    function logout ($params) {
+        //написать logOut
+    }
+    function updateScore($params) {
+        $token = $params['token'];
+        $uuid = $params['uuid'];
+        $score = $params['score'];
+        if ($token && $uuid && $score) {
+            return $this->user->updateScore($token, $uuid, $score);
+        }
+        return ['error'=> 0]; //обработать ошибку
+    }
+    function getScene($params) {
+        $token = $params['token'];
+        $uuid = $params['uuid'];
+        if ($token) {
+            return $this->user->getScene($token, $uuid);
+        }
+        return ['error'=> 0]; //обработать ошибку
     }
     function getRndSalt ($params) {
         $login = $params['login'];
         if ($login) {
             return $this->user->getRndSalt($login);
         }
-        return array(false, 1001);
+        return ['error' => 1001]; //обработать ошибку
     }
     function triangle ($params) {
         $A['x'] = $params['Ax'];
@@ -55,6 +84,6 @@ class Application {
             isset($C['x']) && isset($C['y']) && isset($C['z'])) {
             return $this->triangle->triangle($A, $B, $C);
         }
-        return array(false, 228);
+        return ['error' => 228];
     }
 }

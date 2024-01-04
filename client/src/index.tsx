@@ -8,7 +8,9 @@ import './fonts/FendraSansPro/FedraSansPro-BoldItalic.ttf';
 
 import './fonts/Shancalluna/Shancalluna_regular.ttf'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+);
 root.render(
     <App />
 );

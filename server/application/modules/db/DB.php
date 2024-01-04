@@ -29,12 +29,41 @@ class DB {
         return $sth->fetch(PDO::FETCH_OBJ);
     }
 
+    private function queryAll($sql, $params = []) {
+        $sth = $this->pdo->prepare($sql);
+        $sth->execute($params);
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getUserByLogin($login) {
         return $this->query("SELECT * FROM user WHERE login=?", [$login]);
     }
     
-    public function setUserByLogin($login, $password, $userName) {
-        $id_user = uniqid();
-        return $this->execute("INSERT into user (id_user, login, password, username) VALUES (?, ?, ?, ?)", [$id_user, $login, $password, $userName]);
+    public function getUserById($uuid) {
+        return $this->query("SELECT * FROM user WHERE id_user=?", [$uuid]);
+    }
+
+    public function setUserByLogin($login, $hash, $userName, $uuid, $token) {
+        return $this->execute("INSERT INTO user (id_user, login, password, username, token) VALUES (?, ?, ?, ?, ?)", [$uuid, $login, $hash, $userName, $token]);
+    }
+
+    public function updateToken($login, $token) {
+        return $this->execute("UPDATE user SET token=? WHERE login=?", [$token, $login]);
+    }
+
+    public function updateScoreById($uuid, $score) {
+        return $this->execute("UPDATE score SET score=? WHERE id_user=?", [$score, $uuid]);
+    }
+
+    public function addNewPlayerById($uuid, $name) {
+        return $this->execute("INSERT INTO score (id_user, name) VALUES (?, ?)", [$uuid, $name]);
+    }
+
+    public function getTopPlayers() {
+        return $this->queryAll("SELECT name, score FROM score ORDER BY score DESC LIMIT 5");
+    }
+
+    public function getMyScoreById($uuid) {
+        return $this->query("SELECT score FROM score WHERE id_user=?", [$uuid]);
     }
 }

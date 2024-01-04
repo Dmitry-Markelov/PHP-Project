@@ -13,13 +13,16 @@ function result($params) {
         $app = new Application();
         switch ($method) {
             case 'login': return $app -> login($params);
+            case 'autoLogin': return $app -> autoLogin($params);
             case 'register': return $app -> register($params);
+            case 'updateScore': return $app -> updateScore($params);
+            case 'getScene': return $app -> getScene($params);
             case 'triangle': return $app -> triangle($params);
             case 'getRndSalt': return $app -> getRndSalt($params);
-            default: return array(false, 102);
+            default: return ['error' => 102];
         }
     }
-    return array(false, 101);
+    return ['error' => 101];
 }
 
 
