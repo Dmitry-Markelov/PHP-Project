@@ -3,12 +3,11 @@ import { Navigate } from "react-router-dom";
 import { ServerContext, StoreContext } from '../App';
 import md5 from "md5";
 import './Pages.css';
-import { getUuid } from "../Hooks/useToken";
+import { getToken, getUuid } from "../Hooks/useToken";
 
 const LoginPage = () => {
     const server = useContext(ServerContext);
     const store = useContext(StoreContext);
-    const uuid = getUuid();
 
     const loginRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -46,7 +45,7 @@ const LoginPage = () => {
                     Sign In
                 </button>
             </div>
-            {isAuthenticated ? <Navigate to="/user" replace={true} state={{ login: loginRef.current?.value, username: 'Name'} }/> : null}
+            {isAuthenticated ? <Navigate to="/user" replace={true}/> : null}
         </div>
     )
 }

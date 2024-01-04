@@ -3,6 +3,7 @@ import { Store } from "../Store/Store";
 import {
     TUser,
     TError,
+    TAutoLogin,
 } from "./types";
 
 export default class Server {
@@ -41,15 +42,17 @@ export default class Server {
             setUuid(result.uuid);
             this.token = result.token;
             this.store.setUser(result.name, result.token, result.uuid);
+            return result;
         }
         return null;
     }
     async autoLogin() {
-        const result = await this.request<TUser>('autoLogin', { token: getToken(), uuid: this.uuid });
-        if (result?.token) {
-            setToken(result.token);
-            this.token = result.token;
-            this.store.setUser(result.name, result.token, result.uuid);
+        const result = await this.request<TAutoLogin>('autoLogin', { token: getToken(), uuid: this.uuid });
+        if (result?.newToken) {
+            setToken(result.newToken);
+            this.token = result.newToken;
+            this.store.setUser(result.name, result.newToken, result.uuid);
+            return result;
         }
         return result;
     }

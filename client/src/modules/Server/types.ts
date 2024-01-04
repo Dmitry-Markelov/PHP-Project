@@ -8,3 +8,9 @@ export type TUser = {
     token: string;
     uuid: string;
 }
+
+export type TAutoLogin = {
+    name: string;
+    newToken: string;
+    uuid: string;
+}
