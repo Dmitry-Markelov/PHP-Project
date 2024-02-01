@@ -1,22 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import './Game.css';
-import { TPlayers } from "../modules/Server/types";
+import { TPlayer, TPlayers } from "../modules/Server/types";
 import { ServerContext } from "../App";
 
 const MainPage = () => {
     const server = useContext(ServerContext);
 
+    const [player, setPlayer] = useState<TPlayer | null>(null);
+
     const [counter, setCounter] = useState<number>(0);
     const [players, setPlayers] = useState<TPlayers>([])
 
     const handleClick = () => {
-        setCounter(counter + 1)
+        if (player && player.factor) {
+            setCounter(counter + player.factor);
+        }
     }
 
     const getScene = async () => {
         const result = await server.getScene();
-        if (result?.myScore && counter == 0) {
-            setCounter(result?.myScore);
+        
+        if (result?.player && counter == 0) {
+            setPlayer(result.player);
+            setCounter(result.player.score);
         }
         if (result?.players) {
             setPlayers(result?.players);

@@ -18,11 +18,13 @@ export type TAutoLogin = {
 export type TPlayer = {
     name: string;
     score: number;
+    factor?: number;
 }
 
 export type TPlayers = TPlayer[];
 
 export type TGetScene = {
     myScore: number;
+    player: TPlayer;
     players: TPlayer[];
 }
