@@ -7,10 +7,10 @@ const MainPage = () => {
     const server = useContext(ServerContext);
 
     const [counter, setCounter] = useState<number>(0);
-    const [players, setPlayers] = useState<TPlayers>([])
+    const [players, setPlayers] = useState<TPlayers>([]);
 
     const handleClick = () => {
-        setCounter(counter + 1)
+        setCounter(counter + 1);
     }
 
     const getScene = async () => {
@@ -46,7 +46,6 @@ const MainPage = () => {
 
     return (
         <div className="game-content">
-            {/* <h1>Main</h1> */}
             <div>
                 <p>Count: {counter}</p>
                 <button className="clickerBtn" onClick={() => handleClick()} />

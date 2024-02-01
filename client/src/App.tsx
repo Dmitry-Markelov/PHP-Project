@@ -19,22 +19,25 @@ const App: React.FC = () => {
   const store = new Store();
   const server = new Server(HOST, store);
   const token = getToken();
-  const [isAuthTest, setIsAuthTest] = useState<boolean>(false);
+
   const handleAutoLogin = async () => {
     const result = await server.autoLogin();
     if (result) {
-      store.setAuth();
-      setIsAuthTest(store.isAuth());
+
     } else {
       removeToken();
     }
   }
 
   useEffect(() => {
-    if (token) {
-      handleAutoLogin()
-    }
-  }, [])
+    const fetchData = async () => {
+      if (token) {
+        await handleAutoLogin();
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   return (
     <div className="App">
@@ -42,7 +45,7 @@ const App: React.FC = () => {
         <StoreContext.Provider value={store}>
           <ServerContext.Provider value={server}>
             <Routes>
-              <Route path="/" element={<NavBar isAuth={isAuthTest} />}>
+              <Route path="/" element={<NavBar />}>
                 <Route element={<PrivateRoute />}>
                   <Route path="/user" element={<UserPage />} />
                   <Route path="/main" element={<MainPage />} />

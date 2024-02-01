@@ -1,23 +1,25 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import React from 'react';
 import { StoreContext } from '../App';
 import { NavButton } from './NavButon';
 
-type TNavBar = {
-    isAuth: boolean;
-}
-
-const NavBar = ({ isAuth }: TNavBar) => {
+const NavBar = () => {
     const logo = require('../assets/logo192.png');
 
     const store = useContext(StoreContext);
     const navigate = useNavigate();
 
+    const [isAuth, setIsAuth] = useState<boolean>(store.isAuth());
+
+    useEffect(() => {
+        setIsAuth(store.isAuth());
+    }, [store.isAuth()]);
+
     const handleLogOut = () => {
         localStorage.clear();
         store.isAuthLogOut();
-        navigate('/main', { replace: true });
+        navigate('/login', { replace: true });
     }
     return (
         <>
