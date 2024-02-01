@@ -69,9 +69,12 @@ class User {
         $result = ['myScore' => null, 'players' => null];
         $user = $this->db->getUserById($uuid);
         if($token == $user->token) {
-            $myScore = $this->db->getMyScoreById($uuid);
-            if ($myScore) {
-                $result['myScore'] = $myScore->score;
+            $player = $this->db->getPlayerById($uuid);
+            if ($player) {
+                $result['player'] = array(
+                    'score' => $player->score,
+                    'factor' => $player->factor,
+                );
             }
             $players = $this->db->GetTopPlayers();
             if ($players) {

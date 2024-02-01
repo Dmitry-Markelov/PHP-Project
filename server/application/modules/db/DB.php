@@ -52,18 +52,22 @@ class DB {
     }
 
     public function updateScoreById($uuid, $score) {
-        return $this->execute("UPDATE score SET score=? WHERE id_user=?", [$score, $uuid]);
+        return $this->execute("UPDATE players SET score=? WHERE id_user=?", [$score, $uuid]);
     }
 
     public function addNewPlayerById($uuid, $name) {
-        return $this->execute("INSERT INTO score (id_user, name) VALUES (?, ?)", [$uuid, $name]);
+        return $this->execute("INSERT INTO players (id_user, name) VALUES (?, ?)", [$uuid, $name]);
     }
 
     public function getTopPlayers() {
-        return $this->queryAll("SELECT name, score FROM score ORDER BY score DESC LIMIT 5");
+        return $this->queryAll("SELECT name, score FROM players ORDER BY score DESC LIMIT 5");
     }
 
     public function getMyScoreById($uuid) {
-        return $this->query("SELECT score FROM score WHERE id_user=?", [$uuid]);
+        return $this->query("SELECT score FROM players WHERE id_user=?", [$uuid]);
+    }
+
+    public function getPlayerById($uuid) {
+        return $this->query("SELECT * FROM players WHERE id_user=?", [$uuid]);
     }
 }
